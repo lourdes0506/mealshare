@@ -184,7 +184,7 @@ body {
 }
 
 /* Responsive adjustments */
-@media (max-width: 792px) {
+@media (max-width: 992px) {
   .about-wrapper {
     flex-direction: column;
     align-items: center;
@@ -221,6 +221,13 @@ body {
 
   .about-images img {
     max-width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .hero-merged {
+    background-size: contain;
+    background-position: top center;
+    background-repeat: no-repeat;
   }
 }
 .login-overlay {
