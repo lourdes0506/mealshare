@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mealshare | Where Waste Fuels Hope</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="top-links">
+  <a href="#about">About Us</a>
+  <a href="#" onclick="openLogin()">Login</a>
+  <a href="#" onclick="openSignup()">Sign Up</a>
+  <a href="#">Contact Us</a>
+</div>
+  <!-- Hero Section -->
+<div class="hero-merged">
+  <div class="hero-overlay">
+    <h1 class="brand-name">Mealshare</h1>
+    <p class="motto">— Where <span>waste</span> fuels <span>hope</span> —</p>
+    <div class="hero-buttons">
+  <a href="#" class="btn donate-btn" onclick="openDonate()">Donate Food</a>
+  <a href="#" class="btn find-btn" onclick="openFindFood()">Find Food</a>
+</div>
+  </div>
+</div>
+ <!-- About Us Section -->
+<section id="about" class="about-section">
+  <div class="about-wrapper">
+    <div class="about-text">
+      <h2>ABOUT US</h2>
+      <p>
+        My friend Y. Jeffery Godson and I, as fresh graduates, have decided to dedicate our efforts toward addressing one of the most pressing 
+        yet often overlooked social issues — the wastage of food and the simultaneous rise in hunger among millions. Every day, vast quantities 
+        of edible food are wasted in weddings, parties, hotels, restaurants, and large-scale food industries. According to the 
+        Food and Agriculture Organization (FAO), roughly one-third of all food produced globally — approximately 1.3 billion tonnes — is wasted each year, 
+        even though much of it is still perfectly consumable. In India alone, it is estimated that 40% of the food produced is wasted annually, especially 
+        during post-harvest, processing, and retail stages, as well as from consumer habits and event catering. Meanwhile, over 7,000 people die of hunger 
+        every single day worldwide, and one in every nine people globally (more than 820 million people) goes to bed hungry, despite the world producing more 
+        than enough food to feed everyone. In India, hunger remains a grave concern, with the country ranking 111th out of 125 in the 2023 Global Hunger Index. 
+        The contradiction is heartbreaking — while good food ends up in bins, children suffer from malnutrition, and families are left starving.
+        <br><br>
+        To bridge this painful gap, we have developed a digital solution — Mealshare, a web application built with the vision of "Where Waste Fuels Hope." 
+        Our platform acts as a bridge between food donors, such as restaurants, households, event organizers, and grocery outlets, and NGOs or local volunteers 
+        who serve the underprivileged. Through real-time alerts and geo-mapping, our app makes it easy for donors to notify nearby NGOs when surplus food is available. 
+        It helps reduce food waste, streamline distribution, and ensure hygienic, timely delivery to those in need. What once ended up in the trash now finds its way to empty plates, 
+        turning excess into impact. Mealshare is not just an app; it's a step toward a more responsible, humane, and sustainable world.
+      </p>
+    </div>
+    <div class="about-images">
+      <img src="images/image3.png" alt="Mealshare preview 1">
+      <img src="images/image4.png" alt="Mealshare preview 2">
+    </div>
+  </div>
+</section>
+<!-- Login Box -->
+<div class="login-overlay" id="loginBox">
+  <div class="login-box">
+    <span class="close-btn" onclick="closeLogin()">&times;</span>
+    <h2 id="form-heading">Login</h2>
+    <form id="loginFormWrapper" onsubmit="handleLogin(event)">
+      <label for="email">Email or Phone</label>
+      <input type="text" id="email" name="email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+
+      <button type="submit">Login</button>
+      <p id="login-error" class="error-msg"></p>
+    </form>
+
+    <!-- Hidden Sign-Up Form -->
+<form id="signupForm" class="signup-form">
+  <label for="role">I am a:</label>
+  <select id="role" name="role" onchange="toggleSignupFields()" required>
+    <option value="">-- Select Role --</option>
+    <option value="contributor">Food Contributor</option>
+    <option value="recipient">Food Recipient</option>
+  </select>
+
+  <div class="signup-common">
+    <label for="signup-email">Email or Phone</label>
+    <input type="text" id="signup-email" name="signup-email" required />
+  </div>
+
+  <div id="recipient-extra" style="display: none;">
+    <label for="darpan">DARPAN Number</label>
+    <input type="text" id="darpan" name="darpan" />
+  </div>
+
+  <div class="signup-common">
+    <label for="signup-password">Password</label>
+    <input type="password" id="signup-password" name="signup-password" required />
+  </div>
+
+  <button type="submit">Sign Up</button>
+</form>
+
+  </div>
+</div>
+
+<!-- Script -->
+<script>
+  function openLogin() {
+  document.getElementById('loginBox').style.display = 'flex';
+  document.getElementById('loginFormWrapper').style.display = 'block';  // ✅ show login
+  document.getElementById('signupForm').style.display = 'none';         // ❌ hide sign-up
+  document.getElementById('login-error').textContent = '';
+  document.getElementById('form-heading').textContent = 'Login';
+}
+
+function openSignup() {
+  document.getElementById('loginBox').style.display = 'flex';
+  document.getElementById('loginFormWrapper').style.display = 'none';   // ❌ hide login
+  document.getElementById('signupForm').style.display = 'block';        // ✅ show sign-up
+  document.getElementById('login-error').textContent = '';
+   document.getElementById('form-heading').textContent = 'Sign Up'; // 👈 change to Sign Up
+}
+  function closeLogin() {
+    document.getElementById('loginBox').style.display = 'none';
+  }
+
+  function handleLogin(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    // Dummy check (can be replaced with backend later)
+    if (email === "user@example.com" && password === "1234") {
+      alert("Login successful!");
+      closeLogin();
+    } else {
+      document.getElementById('login-error').textContent = "Such email never existed";
+      document.getElementById('signupForm').style.display = 'block';
+    }
+  }
+  function toggleSignupFields() {
+    const role = document.getElementById('role').value;
+    const recipientExtra = document.getElementById('recipient-extra');
+
+    if (role === 'recipient') {
+      recipientExtra.style.display = 'block';
+    } else {
+      recipientExtra.style.display = 'none';
+    }
+  }
+</script>
+<!-- Donate Form Popup -->
+<div class="donate-overlay" id="donateBox">
+  <div class="donate-box">
+    <span class="close-btn" onclick="closeDonate()">&times;</span>
+    <h2>Donate Food</h2>
+    <form id="donateForm">
+      <label for="donor-name">Name</label>
+      <input type="text" id="donor-name" name="donor-name" required />
+
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" required />
+
+      <label for="aadhar">Aadhar Number</label>
+      <input type="text" id="aadhar" name="aadhar" required maxlength="12" />
+
+      <label for="food-type">Food Type</label>
+      <input type="text" id="food-type" name="food-type" required />
+
+      <label for="best-before">Best Before</label>
+      <input type="date" id="best-before" name="best-before" required />
+
+      <label for="servings">No. of Servings</label>
+      <input type="number" id="servings" name="servings" min="1" required />
+
+      <label for="delivery">Delivery Available?</label>
+      <select id="delivery" name="delivery" required>
+        <option value="">-- Select --</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <label for="pickup">Pickup Location</label>
+      <input type="text" id="pickup" name="pickup" required />
+
+      <label for="note">Additional Notes</label>
+      <textarea id="note" name="note" rows="3"></textarea>
+
+      <button type="submit">Submit Details</button>
+    </form>
+  </div>
+</div>
+<script>
+  function openDonate() {
+    document.getElementById('donateBox').style.display = 'flex';
+  }
+
+  function closeDonate() {
+    document.getElementById('donateBox').style.display = 'none';
+  }
+  function openFindFood() {
+  document.getElementById('findBox').style.display = 'flex';
+}
+
+function closeFindFood() {
+  document.getElementById('findBox').style.display = 'none';
+}
+
+  
+</script>
+<!-- Find Food Form Popup -->
+<div class="donate-overlay" id="findBox">
+  <div class="donate-box">
+    <span class="close-btn" onclick="closeFindFood()">&times;</span>
+    <h2>Request Food</h2>
+    <form id="findForm">
+      <label for="org-type">Type of Organisation</label>
+      <select id="org-type" name="org-type" required>
+        <option value="">-- Select Type --</option>
+        <option value="orphanage">Orphanage</option>
+        <option value="oldage">Old-age Home</option>
+        <option value="both">Both</option>
+        <option value="private">Private Organisation</option>
+      </select>
+
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" required />
+
+      <label for="darpan">DARPAN Number</label>
+      <input type="text" id="darpan" name="darpan" required maxlength="12" />
+
+      <label for="food-type">Food Type</label>
+      <input type="text" id="food-type" name="food-type" required />
+
+      <label for="required-day">Required Day</label>
+      <input type="date" id="required-day" name="required-day" required />
+
+      <label for="servings">No. of Servings</label>
+      <input type="number" id="servings" name="servings" min="1" required />
+
+      <label for="delivery">Can Accept Delivery?</label>
+      <select id="delivery" name="delivery" required>
+        <option value="">-- Select --</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" required />
+
+      <label for="note">Additional Notes</label>
+      <textarea id="note" name="note" rows="3"></textarea>
+
+      <button type="submit">Submit Request</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
