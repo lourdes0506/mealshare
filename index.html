@@ -196,6 +196,30 @@ function openSignup() {
   function closeDonate() {
     document.getElementById('donateBox').style.display = 'none';
   }
+  let lastDonation = null;
+
+document.getElementById("donateForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Save the donation details
+  lastDonation = {
+    name: document.getElementById("donor-name").value,
+    phone: document.getElementById("phone").value,
+    aadhar: document.getElementById("aadhar").value,
+    food: document.getElementById("food-type").value,
+    bestBefore: document.getElementById("best-before").value,
+    servings: document.getElementById("servings").value,
+    delivery: document.getElementById("delivery").value,
+    area: document.getElementById("donate-area").value,
+    pickup: document.getElementById("pickup").value,
+    note: document.getElementById("note").value,
+  };
+
+  document.getElementById("donateBox").style.display = "none";
+  document.getElementById("thankYouBox").style.display = "flex";
+  this.reset();
+});
+
   function openFindFood() {
   document.getElementById('findBox').style.display = 'flex';
 }
@@ -203,6 +227,35 @@ function openSignup() {
 function closeFindFood() {
   document.getElementById('findBox').style.display = 'none';
 }
+  document.getElementById("findForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  if (lastDonation) {
+    const content = `
+      <p>🍱 A matching food donation was found!</p>
+      <p><strong>Donor Name:</strong> ${lastDonation.name}</p>
+      <p><strong>Phone:</strong> ${lastDonation.phone}</p>
+      <p><strong>Food Type:</strong> ${lastDonation.food}</p>
+      <p><strong>Best Before:</strong> ${lastDonation.bestBefore}</p>
+      <p><strong>Servings:</strong> ${lastDonation.servings}</p>
+      <p><strong>Area:</strong> ${lastDonation.area}</p>
+      <p><strong>Pickup Location:</strong> ${lastDonation.pickup}</p>
+      <button onclick="closeMatch()">Close</button>
+    `;
+    document.getElementById("matchContent").innerHTML = content;
+    document.getElementById("findBox").style.display = "none";
+    document.getElementById("matchBox").style.display = "flex";
+  } else {
+    alert("No donation data available yet.");
+  }
+
+  this.reset();
+});
+
+function closeMatch() {
+  document.getElementById("matchBox").style.display = "none";
+}
+
 // Show thank you after submitting the donate form
 document.getElementById("donateForm").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -271,6 +324,11 @@ function closeThankYou() {
     <button onclick="closeThankYou()">Close</button>
   </div>
 </div>
-
+<!-- Match Preview Box -->
+<div class="thank-you-overlay" id="matchBox">
+  <div class="thank-you-box" id="matchContent">
+    <!-- Content will be added dynamically -->
+  </div>
+</div>
 </body>
 </html>
