@@ -255,15 +255,6 @@ function closeFindFood() {
 function closeMatch() {
   document.getElementById("matchBox").style.display = "none";
 }
-
-// Show thank you after submitting the donate form
-document.getElementById("donateForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  document.getElementById("donateBox").style.display = "none";
-  document.getElementById("thankYouBox").style.display = "flex";
-  this.reset();
-});
-
 // Close the thank you popup
 function closeThankYou() {
   document.getElementById("thankYouBox").style.display = "none";
